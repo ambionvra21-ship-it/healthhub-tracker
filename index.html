@@ -22,10 +22,15 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
         body { background: var(--light); color: var(--dark); line-height: 1.6; }
+        
+        /* Premium Navigation Bar */
+        nav { background: var(--primary); padding: 15px 20px; display: flex; justify-content: center; gap: 20px; border-bottom: 2px solid var(--secondary); }
+        nav a { color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.2s; padding: 5px 10px; border-radius: 4px; }
+        nav a:hover, nav a.active { background: var(--secondary); }
+
         header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; padding: 45px 20px; }
         header h1 { font-size: 2.4rem; margin-bottom: 8px; }
         
-        /* Master container grid alignment rules */
         .container { max-width: 1300px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr; gap: 30px; }
         @media(min-width: 992px) { .container { grid-template-columns: 2fr 1fr; } }
 
@@ -44,13 +49,11 @@
         .action-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--secondary), var(--teal)); color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .action-btn:hover { opacity: 0.9; }
 
-        /* Dashboard Overview Badges */
         .dash-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .stat-card { background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; text-align: center; }
         .stat-card p { font-size: 0.8rem; text-transform: uppercase; color: #64748b; font-weight: bold; }
         .stat-card h3 { font-size: 1.5rem; color: var(--secondary); font-weight: 800; }
 
-        /* Output Diagnostics cards components */
         .results-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 25px; display: none; }
         @media(min-width: 576px) { .results-grid { grid-template-columns: 1fr 1fr; } }
         .res-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; border-top: 4px solid var(--secondary); }
@@ -65,7 +68,6 @@
         .flex-buttons { display: flex; gap: 10px; margin-top: 15px; }
         .sub-btn { flex: 1; padding: 10px; background: #e2e8f0; color: var(--dark); border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 0.85rem; }
 
-        /* Sidebar Elements and Lists */
         .reminder-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9; }
         .reminder-item:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
         .reminder-item input[type="checkbox"] { width: 18px; height: 18px; margin-top: 3px; cursor: pointer; }
@@ -82,6 +84,13 @@
 </head>
 <body>
 
+    <!-- Dynamic Header Links Navigation -->
+    <nav>
+        <a href="index.html" class="active">📊 Dashboard</a>
+        <a href="about.html">👤 About & Contact</a>
+        <a href="privacy-policy.html">🔒 Privacy Policy</a>
+    </nav>
+
     <header>
         <h1>HealthHub Tracker Ultra Pro</h1>
         <p>Advanced Clinical Metric System, Body Fat Estimator, & Daily Goal Countdown Engine</p>
@@ -89,11 +98,10 @@
 
     <div class="container">
         
-        <!-- ==================== MAIN LEFT HAND SIDE PANELS ==================== -->
+        <!-- MAIN LEFT COLUMN -->
         <main>
             <div class="adsense-slot">[AdSense Top Leaderboard Banner]</div>
 
-            <!-- Dynamic Overview Panel Cards -->
             <div class="dash-summary">
                 <div class="stat-card"><p>Saved Profile</p><h3 id="stat-name">None</h3></div>
                 <div class="stat-card"><p>Total Weight Shift</p><h3 id="stat-delta">--</h3></div>
@@ -101,27 +109,20 @@
                 <div class="stat-card"><p>Consecutive Logs</p><h3 id="stat-streak">0 Days</h3></div>
             </div>
 
-            <!-- Section 1: Advanced User Base Demographics Configuration Profile -->
             <div class="card-box">
                 <h2>👤 1. Advanced Physical Profile Setup</h2>
                 <form id="advancedProfileForm" onsubmit="saveAdvancedProfile(event)">
                     <div class="input-grid">
                         <div class="input-group"><label>Display Name</label><input type="text" id="p-name" required placeholder="e.g., Alex"></div>
-                        <div class="input-grid" style="margin-bottom:0; gap:0 15px;">
-                            <div class="input-group"><label>Age (years)</label><input type="number" id="p-age" required value="26"></div>
-                            <div class="input-group">
-                                <label>Biological Gender</label>
-                                <select id="p-gender" onchange="toggleGenderInputs()"><option value="male">Male</option><option value="female">Female</option></select>
-                            </div>
+                        <div class="input-group"><label>Age (years)</label><input type="number" id="p-age" required value="26"></div>
+                        <div class="input-group">
+                            <label>Biological Gender</label>
+                            <select id="p-gender" onchange="toggleGenderInputs()"><option value="male">Male</option><option value="female">Female</option></select>
                         </div>
-                        <div class="input-grid" style="margin-bottom:0; gap:0 15px;">
-                            <div class="input-group"><label>Stature Height (cm)</label><input type="number" id="p-height" required value="172"></div>
-                            <div class="input-group"><label>Target Goal Weight (kg)</label><input type="number" id="p-target" required step="0.1" value="65"></div>
-                        </div>
-                        <div class="input-grid" style="margin-bottom:0; gap:0 15px;">
-                            <div class="input-group"><label>Neck Circumference (cm)</label><input type="number" id="p-neck" required step="0.1" value="38"></div>
-                            <div class="input-group"><label>Waist Circumference (cm)</label><input type="number" id="p-waist" required step="0.1" value="84"></div>
-                        </div>
+                        <div class="input-group"><label>Stature Height (cm)</label><input type="number" id="p-height" required value="172"></div>
+                        <div class="input-group"><label>Target Goal Weight (kg)</label><input type="number" id="p-target" required step="0.1" value="65"></div>
+                        <div class="input-group"><label>Neck Circumference (cm)</label><input type="number" id="p-neck" required step="0.1" value="38"></div>
+                        <div class="input-group"><label>Waist Circumference (cm)</label><input type="number" id="p-waist" required step="0.1" value="84"></div>
                         <div class="input-group" id="hip-wrapper" style="display: none;"><label>Hip Circumference (cm)</label><input type="number" id="p-hip" step="0.1" value="96"></div>
                     </div>
                     <div class="input-group">
@@ -137,72 +138,9 @@
                 </form>
             </div>
 
-            <!-- Section 2: Comprehensive Multi-Diagnostic Metric Logger Input -->
             <div class="card-box">
                 <h2>📅 2. Input Daily Metrics Data Entry</h2>
                 <form id="advancedLogForm" onsubmit="computeAdvancedMetrics(event)">
                     <div class="input-grid">
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us & Contact - HealthHub Tracker Pro</title>
-    <style>
-        :root {
-            --primary: #0f172a;
-            --secondary: #2563eb;
-            --light: #f8fafc;
-            --dark: #1e293b;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background: var(--light); color: var(--dark); line-height: 1.6; padding: 40px 20px; }
-        .wrapper { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
-        h1 { color: var(--primary); margin-bottom: 15px; font-size: 2rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-        h2 { color: var(--secondary); margin-top: 25px; margin-bottom: 10px; font-size: 1.3rem; }
-        p { margin-bottom: 15px; color: #475569; }
-        ul { margin-bottom: 20px; padding-left: 20px; color: #475569; }
-        li { margin-bottom: 8px; }
-        .back-link { display: inline-block; margin-top: 20px; color: var(--secondary); text-decoration: none; font-weight: bold; }
-        .back-link:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
-
-    <div class="wrapper">
-        <h1>About HealthHub Tracker Pro</h1>
-        <p>Welcome to HealthHub Tracker Pro, a premium, privacy-first wellness and metabolic analysis suite engineered to help individuals understand and track vital physical markers entirely offline.</p>
-        
-        <h2>Our Mission</h2>
-        <p>Our platform was built with a simple goal: to eliminate complex, subscription-heavy fitness tracking apps and replace them with a single, comprehensive dashboard that operates completely inside your local browser storage. We believe your biological data belongs to you—which is why your logs never touch an external cloud server.</p>
-
-        <h2>What We Calculate</h2>
-        <ul>
-            <li><strong>Body Mass Index (BMI):</strong> Standard screening limits relative to stature height.</li>
-            <li><strong>Basal Metabolic Rate (BMR):</strong> Baseline daily survival caloric consumption metrics.</li>
-            <li><strong>Total Daily Energy Expenditure (TDEE):</strong> Maintenance multipliers factoring lifestyle load constraints.</li>
-            <li><strong>US Navy Body Fat Estimations:</strong> Structural circumferences analysis modeling subcutaneous fat tissue density layers.</li>
-            <li><strong>Waist-to-Height Ratio (WHtR):</strong> Critical metric tracking systemic cardiovascular and metabolic risk markers.</li>
-        </ul>
-
-        <h2>Contact Information</h2>
-        <p>We value open communication with our community. If you have inquiries, bug disclosures, or feature optimizations you would like to recommend, reach out directly via our digital inbox:</p>
-        <p>📩 <strong>Support Email:</strong> admin@yourdomain.com (Or drop a review directly onto our homepage feed!)</p>
-
-        <a href="index.html" class="back-link">← Return to Master Tracker Dashboard</a>
-    </div>
-
-</body>
-</html>
+                        <div class="input-group"><label>Calendar Date</label><input type="date" id="l-date" required></div>
+  
